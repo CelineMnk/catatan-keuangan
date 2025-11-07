@@ -24,6 +24,7 @@ return [
     | running in. This may determine how you prefer to configure various
     | services the application utilizes. Set this in your ".env" file.
     |
+    |
     */
 
     'env' => env('APP_ENV', 'production'),
@@ -121,6 +122,20 @@ return [
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Vite Manifest Path Configuration (Tambahan untuk Perbaikan Hosting)
+    |--------------------------------------------------------------------------
+    |
+    | Secara eksplisit memberitahu Laravel bahwa folder manifest Vite adalah 'build'.
+    | Ini sering diperlukan jika environment hosting memiliki masalah dengan
+    | resolusi path absolut default Laravel.
+    |
+    */
+    'vite' => [
+        'manifest_directory' => 'build', 
     ],
 
 ];
