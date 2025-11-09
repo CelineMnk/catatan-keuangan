@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <title>{{ config('app.name', 'Catatan Keuangan') }}</title>
+    <title><?php echo e(config('app.name', 'Catatan Keuangan')); ?></title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -17,10 +17,10 @@
     <!-- Trix Editor -->
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
 
-    @stack('styles')
+    <?php echo $__env->yieldPushContent('styles'); ?>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     @livewireStyles
 
     <!-- SweetAlert & ApexCharts -->
@@ -30,7 +30,7 @@
     <!-- Trix -->
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 
-    @stack('scripts')
+    <?php echo $__env->yieldPushContent('scripts'); ?>
 
     <style>
         body {
@@ -79,38 +79,40 @@
 <body class="font-sans antialiased text-gray-800">
     <div class="min-h-screen">
         <!-- Navbar -->
-        @include('layouts.navigation')
+        <?php echo $__env->make('layouts.navigation', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
         <!-- Page Heading -->
-        @isset($header)
+        <?php if(isset($header)): ?>
             <header class="bg-white/70 backdrop-blur-md shadow-md mt-16">
                 <div class="max-w-7xl mx-auto py-4 px-6 lg:px-8 text-pink-700 font-semibold">
-                    {{ $header }}
+                    <?php echo e($header); ?>
+
                 </div>
             </header>
-        @endisset
+        <?php endif; ?>
 
         <!-- Page Content -->
         <main class="px-4 sm:px-6 lg:px-8">
-            {{ $slot ?? '' }}
-            @yield('content')
+            <?php echo e($slot ?? ''); ?>
+
+            <?php echo $__env->yieldContent('content'); ?>
         </main>
     </div>
 
     <!-- Notifikasi Sukses -->
-    @if(session('success'))
+    <?php if(session('success')): ?>
         <script>
             Swal.fire({
                 icon: 'success',
                 title: 'Sukses 💖',
-                text: "{{ session('success') }}",
+                text: "<?php echo e(session('success')); ?>",
                 timer: 2000,
                 showConfirmButton: false,
                 background: '#fff0f5',
                 color: '#d63384'
             });
         </script>
-    @endif
+    <?php endif; ?>
 
     <script>
         function showSuccess(message) {
@@ -139,3 +141,4 @@
     @livewireScripts
 </body>
 </html>
+<?php /**PATH D:\SEM 5\PABWE\catatan-keuangan\resources\views/layouts/app.blade.php ENDPATH**/ ?>
